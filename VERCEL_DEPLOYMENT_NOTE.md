@@ -22,13 +22,14 @@
 
 ### 生产环境部署
 
-#### 热力图应用 (Heatmap-pro) - 主入口应用
+#### 热力图应用 (Heatmap-pro) - 平台唯一入口
 ```bash
 git clone -b HM-Pro-V5.6 https://github.com/simonxinpan/Heatmap-pro.git
 cd Heatmap-pro
 vercel --prod
 ```
 **当前生产URL**: https://heatmap-pro-jn8bqzuiw-simon-pans-projects.vercel.app/
+**说明**: 此为平台唯一入口，无需额外Landing页面，直接展示全景热力图
 
 #### 个股详情页 (Stock-name-pages)
 ```bash

@@ -32,13 +32,13 @@
 
 ## 核心功能模块
 
-### 1. 全景热力图 (Market Heatmap) - 主入口应用
+### 1. 全景热力图 (Market Heatmap) - 平台主入口
 - **在线应用**: [https://heatmap-pro-jn8bqzuiw-simon-pans-projects.vercel.app](https://heatmap-pro-jn8bqzuiw-simon-pans-projects.vercel.app)
 - **GitHub仓库**: [https://github.com/simonxinpan/Heatmap-pro/tree/HM-Pro-V5.6](https://github.com/simonxinpan/Heatmap-pro/tree/HM-Pro-V5.6)
-- **功能描述**: 作为平台主入口，实时展示标普500成分股的市场表现，通过颜色深浅和面积大小直观反映股票涨跌幅和市值规模
+- **功能描述**: 平台唯一入口，直接展示标普500成分股实时热力图，无需额外Landing页面
 - **交互设计**: 
   - 点击行业区域 → 进入行业热力图页面
-  - 点击个股方块 → 跳转到个股详情页
+  - 点击个股方块 → 跳转到个股详情页 (https://stock-details-final-gmguhh0c4-simon-pans-projects.vercel.app/)
 - **技术栈**: Next.js, TradingView图表库, TypeScript, Tailwind CSS
 - **数据源**: Polygon API, Finnhub API, Neon PostgreSQL数据库
 

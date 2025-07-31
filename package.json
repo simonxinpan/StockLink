@@ -1,7 +1,7 @@
 {
   "name": "stocklink",
   "version": "1.0.0",
-  "description": "StockLink - 微前端股票分析平台，以全景热力图为主入口，整合智能个股详情页",
+  "description": "StockLink - 微前端股票分析平台，全景热力图为唯一入口，无需Landing页面，整合智能个股详情页"
   "main": "index.js",
   "scripts": {
     "dev:heatmap": "cd apps/heatmap && npm run dev",
