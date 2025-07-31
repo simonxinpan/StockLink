@@ -87,32 +87,36 @@ npm run dev:details
 - 独立版本控制
 - 更好的性能和稳定性
 
-#### 1. 部署热力图应用
+#### 1. 部署热力图应用（主入口）
 ```bash
 # 直接从原始仓库部署
-git clone https://github.com/simonxinpan/Heatmap-pro.git
+git clone -b HM-Pro-V5.6 https://github.com/simonxinpan/Heatmap-pro.git
 cd Heatmap-pro
 vercel --prod
 ```
 
+**当前生产URL**: https://heatmap-pro-jn8bqzuiw-simon-pans-projects.vercel.app/
+
 **环境变量设置**:
-- `POLYGON_API_KEY`
-- `FINNHUB_API_KEY`
-- `DATABASE_URL`
+- `POLYGON_API_KEY` (已配置)
+- `FINNHUB_API_KEY` (已配置)
+- `DATABASE_URL` (Neon PostgreSQL，已配置)
 - `NEXT_PUBLIC_DETAILS_URL` (个股详情页的生产URL)
 
 #### 2. 部署个股详情页应用
 ```bash
 # 直接从原始仓库部署
-git clone https://github.com/simonxinpan/Stock-name-pages.git
+git clone -b Stock-details-V17.3 https://github.com/simonxinpan/Stock-name-pages.git
 cd Stock-name-pages
 vercel --prod
 ```
 
+**当前生产URL**: https://stock-details-final-gmguhh0c4-simon-pans-projects.vercel.app/
+
 **环境变量设置**:
-- `POLYGON_API_KEY`
-- `FINNHUB_API_KEY`
-- `DATABASE_URL`
+- `POLYGON_API_KEY` (已配置)
+- `FINNHUB_API_KEY` (已配置)
+- `DATABASE_URL` (Neon PostgreSQL，已配置)
 - `NEXT_PUBLIC_HEATMAP_URL` (热力图的生产URL)
 
 ### 注意事项

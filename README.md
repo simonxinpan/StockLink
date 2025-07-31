@@ -32,15 +32,15 @@
 
 ## 核心功能模块
 
-### 1. 全景热力图 (Market Heatmap)
-- **在线应用**: [https://heatmap-drljknez4-simon-pans-projects.vercel.app](https://heatmap-drljknez4-simon-pans-projects.vercel.app)
+### 1. 全景热力图 (Market Heatmap) - 主入口应用
+- **在线应用**: [https://heatmap-pro-jn8bqzuiw-simon-pans-projects.vercel.app](https://heatmap-pro-jn8bqzuiw-simon-pans-projects.vercel.app)
 - **GitHub仓库**: [https://github.com/simonxinpan/Heatmap-pro/tree/HM-Pro-V5.6](https://github.com/simonxinpan/Heatmap-pro/tree/HM-Pro-V5.6)
-- **功能描述**: 标普500成分股实时热力图展示，支持行业分类和个股点击跳转
+- **功能描述**: 作为平台主入口，实时展示标普500成分股的市场表现，通过颜色深浅和面积大小直观反映股票涨跌幅和市值规模
 - **交互设计**: 
   - 点击行业区域 → 进入行业热力图页面
   - 点击个股方块 → 跳转到个股详情页
-- **技术栈**: Next.js, TradingView图表库, Tailwind CSS
-- **数据源**: Polygon API, Finnhub API
+- **技术栈**: Next.js, TradingView图表库, TypeScript, Tailwind CSS
+- **数据源**: Polygon API, Finnhub API, Neon PostgreSQL数据库
 
 ### 2. 智能个股详情页 (Smart Stock Details)
 - **在线应用**: [https://stock-details-final-gmguhh0c4-simon-pans-projects.vercel.app](https://stock-details-final-gmguhh0c4-simon-pans-projects.vercel.app)
@@ -52,7 +52,7 @@
   - 中英双语支持和智能翻译
   - 响应式设计，多端适配
 - **技术栈**: Next.js 14, TypeScript, TradingView图表库, Tailwind CSS
-- **数据源**: Finnhub API, Neon PostgreSQL数据库
+- **数据源**: Polygon API, Finnhub API, Neon PostgreSQL数据库
 
 ## 项目结构
 
@@ -76,14 +76,14 @@ StockLink/
 ```bash
 # 从GitHub仓库导入热力图代码
 git subtree add --prefix=apps/heatmap \
-  https://github.com/simonxinpan/Heatmap-pro.git HM-Pro-V5.6 --squash
+  https://github.com/simonxinpan/Heatmap-pro.git main --squash
 ```
 
 #### 个股详情页导入
 ```bash
 # 从GitHub仓库导入个股详情页代码
 git subtree add --prefix=apps/details \
-  https://github.com/simonxinpan/Stock-name-pages.git Stock-details-V17.3 --squash
+  https://github.com/simonxinpan/Stock-name-pages.git main --squash
 ```
 
 ## 快速开始

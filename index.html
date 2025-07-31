@@ -10,8 +10,8 @@
 </head>
 <body class="bg-gray-50 min-h-screen">
     <div x-data="{
-        heatmapUrl: 'http://localhost:3000',
-        detailsUrl: 'http://localhost:3001',
+        heatmapUrl: window.location.hostname === 'localhost' ? 'http://localhost:3000' : 'https://heatmap-pro-jn8bqzuiw-simon-pans-projects.vercel.app/',
+        detailsUrl: window.location.hostname === 'localhost' ? 'http://localhost:3001' : 'https://stock-details-final-gmguhh0c4-simon-pans-projects.vercel.app/',
         isProduction: window.location.hostname !== 'localhost'
     }" class="container mx-auto px-4 py-8">
         

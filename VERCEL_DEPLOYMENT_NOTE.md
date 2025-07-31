@@ -22,17 +22,21 @@
 
 ### 生产环境部署
 
+#### 热力图应用 (Heatmap-pro) - 主入口应用
 ```bash
-# 1. 部署热力图应用
-git clone https://github.com/simonxinpan/Heatmap-pro.git
+git clone -b HM-Pro-V5.6 https://github.com/simonxinpan/Heatmap-pro.git
 cd Heatmap-pro
 vercel --prod
+```
+**当前生产URL**: https://heatmap-pro-jn8bqzuiw-simon-pans-projects.vercel.app/
 
-# 2. 部署个股详情页应用
-git clone https://github.com/simonxinpan/Stock-name-pages.git
+#### 个股详情页 (Stock-name-pages)
+```bash
+git clone -b Stock-details-V17.3 https://github.com/simonxinpan/Stock-name-pages.git
 cd Stock-name-pages
 vercel --prod
 ```
+**当前生产URL**: https://stock-details-final-gmguhh0c4-simon-pans-projects.vercel.app/
 
 ### 本地开发
 

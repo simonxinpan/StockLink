@@ -18,15 +18,15 @@ echo.
 echo 检查项目结构...
 if not exist "apps\heatmap" (
     echo 警告: apps\heatmap 目录不存在
-    echo 请先运行以下命令导入热力图代码:
-    echo git subtree add --prefix=apps/heatmap https://github.com/simonxinpan/Heatmap-pro.git HM-Pro-V5.6 --squash
-    echo.
+echo 请先运行以下命令导入热力图代码:
+echo git subtree add --prefix=apps/heatmap https://github.com/simonxinpan/Heatmap-pro.git HM-Pro-V5.6 --squash
+echo.
 )
 
 if not exist "apps\details" (
-    echo 警告: apps\details 目录不存在
-    echo 请先运行以下命令导入个股详情页代码:
-    echo git subtree add --prefix=apps/details https://github.com/simonxinpan/Stock-name-pages.git Stock-details-V17.3 --squash
+echo 警告: apps\details 目录不存在
+echo 请先运行以下命令导入个股详情页代码:
+echo git subtree add --prefix=apps/details https://github.com/simonxinpan/Stock-name-pages.git Stock-details-V17.3 --squash
     echo.
 )
 
