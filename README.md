@@ -136,7 +136,20 @@ npm run dev:details
 - 个股详情页: http://localhost:3001
 - 开发导航页: 打开 `index.html`
 
-### 部署到Vercel
+### 部署到生产环境
+
+**重要**: StockLink作为父仓库主要用于本地开发。生产部署请直接从原始仓库部署：
+
+```bash
+# 部署热力图应用
+git clone https://github.com/simonxinpan/Heatmap-pro.git
+cd Heatmap-pro && vercel --prod
+
+# 部署个股详情页应用
+git clone https://github.com/simonxinpan/Stock-name-pages.git
+cd Stock-name-pages && vercel --prod
+```
+
 详细部署说明请参考 [DEPLOYMENT.md](./DEPLOYMENT.md)
 
 ## 技术架构

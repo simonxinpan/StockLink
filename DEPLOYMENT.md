@@ -80,11 +80,18 @@ npm run dev:details
 
 ## Vercel 部署
 
-### 方案一：独立部署 (推荐)
+### 推荐部署方案：独立部署
+
+由于StockLink采用微前端架构，**强烈推荐**对每个应用进行独立部署，这样可以：
+- 避免配置冲突
+- 独立版本控制
+- 更好的性能和稳定性
 
 #### 1. 部署热力图应用
 ```bash
-cd apps/heatmap
+# 直接从原始仓库部署
+git clone https://github.com/simonxinpan/Heatmap-pro.git
+cd Heatmap-pro
 vercel --prod
 ```
 
@@ -96,7 +103,9 @@ vercel --prod
 
 #### 2. 部署个股详情页应用
 ```bash
-cd apps/details
+# 直接从原始仓库部署
+git clone https://github.com/simonxinpan/Stock-name-pages.git
+cd Stock-name-pages
 vercel --prod
 ```
 
@@ -106,13 +115,12 @@ vercel --prod
 - `DATABASE_URL`
 - `NEXT_PUBLIC_HEATMAP_URL` (热力图的生产URL)
 
-### 方案二：统一部署
+### 注意事项
 
-在项目根目录使用 `vercel.json` 配置文件进行统一部署：
-
-```bash
-vercel --prod
-```
+⚠️ **避免从StockLink父仓库直接部署**
+- StockLink主要用于本地开发和代码管理
+- 生产环境应直接从各自的原始仓库部署
+- 这样可以避免Vercel配置冲突和构建问题
 
 ## 应用间通信
 
