@@ -3,298 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SP500 Insight Platform - 标普500洞察平台</title>
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <title>StockLink - 微前端股票分析平台</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .pulse-animation {
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-    </style>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
 </head>
-<body class="bg-gray-50 min-h-screen" x-data="platformApp()">
-    <!-- 导航栏 -->
-    <nav class="gradient-bg shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <h1 class="text-white text-xl font-bold">
-                            <i class="fas fa-chart-line mr-2"></i>
-                            SP500 Insight Platform
-                        </h1>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <button class="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium">
-                        <i class="fas fa-user mr-1"></i>
-                        登录
-                    </button>
-                    <button class="bg-white text-purple-600 hover:bg-gray-100 px-4 py-2 rounded-md text-sm font-medium">
-                        免费试用
-                    </button>
-                </div>
+<body class="bg-gray-50 min-h-screen">
+    <div x-data="{
+        heatmapUrl: 'http://localhost:3000',
+        detailsUrl: 'http://localhost:3001',
+        isProduction: window.location.hostname !== 'localhost'
+    }" class="container mx-auto px-4 py-8">
+        
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <div class="flex items-center justify-center mb-4">
+                <span class="text-4xl mr-3">📈</span>
+                <h1 class="text-4xl font-bold text-gray-800">StockLink</h1>
             </div>
-        </div>
-    </nav>
+            <p class="text-xl text-gray-600 mb-2">微前端股票分析平台</p>
+            <p class="text-sm text-gray-500">连接热力图与个股详情的智能分析平台</p>
+        </header>
 
-    <!-- 主要内容区域 -->
-    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <!-- 欢迎横幅 -->
-        <div class="bg-white overflow-hidden shadow rounded-lg mb-8">
-            <div class="px-4 py-5 sm:p-6">
-                <div class="text-center">
-                    <h2 class="text-3xl font-extrabold text-gray-900 mb-4">
-                        全球华人投资者首选的美股分析平台
-                    </h2>
-                    <p class="text-lg text-gray-600 mb-6">
-                        通过微前端架构和智能数据整合，提供从宏观到微观的全方位投资洞察
-                    </p>
-                    <div class="flex justify-center space-x-4">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-                            <i class="fas fa-chart-area mr-1"></i>
-                            实时数据
-                        </span>
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                            <i class="fas fa-language mr-1"></i>
-                            智能翻译
-                        </span>
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
-                            <i class="fas fa-mobile-alt mr-1"></i>
-                            响应式设计
-                        </span>
-                    </div>
+        <!-- Development Notice -->
+        <div x-show="!isProduction" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-8">
+            <div class="flex items-center">
+                <span class="text-yellow-600 mr-2">⚠️</span>
+                <div>
+                    <h3 class="font-semibold text-yellow-800">开发环境</h3>
+                    <p class="text-yellow-700 text-sm">请确保热力图应用 (端口3000) 和个股详情页应用 (端口3001) 已启动</p>
                 </div>
             </div>
         </div>
 
-        <!-- 核心功能模块 -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-            <!-- 市场热力图模块 -->
-            <div class="bg-white overflow-hidden shadow rounded-lg card-hover">
-                <div class="px-4 py-5 sm:p-6">
-                    <div class="flex items-center mb-4">
-                        <div class="flex-shrink-0">
-                            <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-fire text-red-600 text-xl"></i>
-                            </div>
-                        </div>
-                        <div class="ml-4">
-                            <h3 class="text-lg font-medium text-gray-900">市场热力图</h3>
-                            <p class="text-sm text-gray-500">宏观市场概览</p>
-                        </div>
+        <!-- Main Applications -->
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <!-- Heatmap App -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-6 text-white">
+                    <div class="flex items-center mb-2">
+                        <span class="text-2xl mr-3">🔥</span>
+                        <h2 class="text-2xl font-bold">全景热力图</h2>
                     </div>
-                    <p class="text-gray-600 mb-4">
-                        实时展示标普500成分股的表现，通过颜色深浅和面积大小直观反映股票涨跌幅和市值规模，帮助您快速把握市场整体趋势。
-                    </p>
-                    <div class="mb-4">
-                        <div class="flex items-center text-sm text-gray-500 mb-2">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            实时数据更新
-                        </div>
-                        <div class="flex items-center text-sm text-gray-500 mb-2">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            板块分类筛选
-                        </div>
-                        <div class="flex items-center text-sm text-gray-500">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            交互式图表
-                        </div>
-                    </div>
+                    <p class="text-blue-100">S&P 500 市场全景热力图 - 主入口应用</p>
+                </div>
+                <div class="p-6">
+                    <ul class="text-gray-600 mb-6 space-y-2">
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            实时市场数据可视化
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            行业板块热力分析
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            点击跳转个股详情
+                        </li>
+                    </ul>
                     <button 
-                        @click="openHeatmap()" 
-                        class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out"
-                    >
-                        <i class="fas fa-external-link-alt mr-2"></i>
-                        进入热力图
+                        @click="window.open(heatmapUrl, '_blank')"
+                        class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
+                        打开热力图应用
                     </button>
                 </div>
             </div>
 
-            <!-- 智能个股详情模块 -->
-            <div class="bg-white overflow-hidden shadow rounded-lg card-hover">
-                <div class="px-4 py-5 sm:p-6">
-                    <div class="flex items-center mb-4">
-                        <div class="flex-shrink-0">
-                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-search-dollar text-blue-600 text-xl"></i>
-                            </div>
-                        </div>
-                        <div class="ml-4">
-                            <h3 class="text-lg font-medium text-gray-900">智能个股详情</h3>
-                            <p class="text-sm text-gray-500">微观深度分析</p>
-                        </div>
+            <!-- Stock Details App -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <div class="bg-gradient-to-r from-green-500 to-green-600 p-6 text-white">
+                    <div class="flex items-center mb-2">
+                        <span class="text-2xl mr-3">📊</span>
+                        <h2 class="text-2xl font-bold">个股详情页</h2>
                     </div>
-                    <p class="text-gray-600 mb-4">
-                        深入分析单只股票的基本面、技术面和新闻资讯，提供中英文新闻翻译，让您全面了解投资标的的各个维度。
-                    </p>
-                    <div class="mb-4">
-                        <div class="flex items-center text-sm text-gray-500 mb-2">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            基本面分析
-                        </div>
-                        <div class="flex items-center text-sm text-gray-500 mb-2">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            新闻智能翻译
-                        </div>
-                        <div class="flex items-center text-sm text-gray-500">
-                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
-                            技术指标图表
-                        </div>
-                    </div>
+                    <p class="text-green-100">深度个股分析与数据展示</p>
+                </div>
+                <div class="p-6">
+                    <ul class="text-gray-600 mb-6 space-y-2">
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            TradingView 专业图表
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            实时财务数据分析
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            智能新闻翻译
+                        </li>
+                    </ul>
                     <button 
-                        @click="openStockDetails()" 
-                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 ease-in-out"
-                    >
-                        <i class="fas fa-external-link-alt mr-2"></i>
-                        进入个股分析
+                        @click="window.open(detailsUrl, '_blank')"
+                        class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200">
+                        打开详情页应用
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- 平台优势 -->
-        <div class="bg-white overflow-hidden shadow rounded-lg mb-8">
-            <div class="px-4 py-5 sm:p-6">
-                <h3 class="text-lg font-medium text-gray-900 mb-6 text-center">平台核心优势</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-cubes text-purple-600 text-2xl"></i>
-                        </div>
-                        <h4 class="text-lg font-medium text-gray-900 mb-2">微前端架构</h4>
-                        <p class="text-gray-600">模块化开发，独立部署，技术栈灵活，确保系统稳定性和扩展性</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-database text-green-600 text-2xl"></i>
-                        </div>
-                        <h4 class="text-lg font-medium text-gray-900 mb-2">多数据源整合</h4>
-                        <p class="text-gray-600">整合Finnhub、Polygon.io等优质数据源，提供准确及时的市场信息</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-brain text-blue-600 text-2xl"></i>
-                        </div>
-                        <h4 class="text-lg font-medium text-gray-900 mb-2">智能分析</h4>
-                        <p class="text-gray-600">AI驱动的新闻翻译和数据分析，降低投资决策的信息门槛</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 快速导航 -->
-        <div class="bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg shadow-lg">
-            <div class="px-4 py-5 sm:p-6">
+        <!-- Architecture Info -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">微前端架构特性</h3>
+            <div class="grid md:grid-cols-3 gap-6">
                 <div class="text-center">
-                    <h3 class="text-xl font-bold text-white mb-4">开始您的投资分析之旅</h3>
-                    <p class="text-purple-100 mb-6">选择您感兴趣的分析维度，获取专业的投资洞察</p>
-                    <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-                        <button 
-                            @click="openHeatmap()" 
-                            class="bg-white text-purple-600 hover:bg-gray-100 font-medium py-3 px-6 rounded-md transition duration-150 ease-in-out"
-                        >
-                            <i class="fas fa-fire mr-2"></i>
-                            市场全景热力图
-                        </button>
-                        <button 
-                            @click="openStockDetails()" 
-                            class="bg-white text-purple-600 hover:bg-gray-100 font-medium py-3 px-6 rounded-md transition duration-150 ease-in-out"
-                        >
-                            <i class="fas fa-search-dollar mr-2"></i>
-                            个股深度分析
-                        </button>
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🔗</span>
                     </div>
+                    <h4 class="font-semibold text-gray-800 mb-2">独立部署</h4>
+                    <p class="text-gray-600 text-sm">每个应用独立开发、测试和部署，互不影响</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">⚡</span>
+                    </div>
+                    <h4 class="font-semibold text-gray-800 mb-2">高性能</h4>
+                    <p class="text-gray-600 text-sm">按需加载，优化用户体验和页面性能</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span class="text-2xl">🔄</span>
+                    </div>
+                    <h4 class="font-semibold text-gray-800 mb-2">无缝集成</h4>
+                    <p class="text-gray-600 text-sm">通过URL和数据共享实现应用间流畅跳转</p>
                 </div>
             </div>
         </div>
-    </main>
 
-    <!-- 页脚 -->
-    <footer class="bg-gray-800 mt-12">
-        <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <p class="text-gray-400 text-sm">
-                    © 2024 SP500 Insight Platform. 基于微前端架构构建的现代化投资分析平台.
-                </p>
-                <div class="mt-4 flex justify-center space-x-6">
-                    <span class="text-gray-400 text-xs">数据来源: Finnhub, Polygon.io</span>
-                    <span class="text-gray-400 text-xs">翻译服务: Volcengine</span>
-                    <span class="text-gray-400 text-xs">部署平台: Vercel</span>
-                </div>
+        <!-- Quick Links -->
+        <div class="bg-gray-100 rounded-xl p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">快速链接</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <a href="./README.md" class="text-blue-600 hover:text-blue-800 text-sm font-medium">📖 项目文档</a>
+                <a href="./DEPLOYMENT.md" class="text-blue-600 hover:text-blue-800 text-sm font-medium">🚀 部署指南</a>
+                <a href="./docs/" class="text-blue-600 hover:text-blue-800 text-sm font-medium">📋 产品文档</a>
+                <a href="https://github.com/simonxinpan/Heatmap-pro" target="_blank" class="text-blue-600 hover:text-blue-800 text-sm font-medium">🔥 热力图仓库</a>
             </div>
         </div>
-    </footer>
+
+        <!-- Footer -->
+        <footer class="text-center mt-12 text-gray-500 text-sm">
+            <p>&copy; 2024 StockLink Team. 基于微前端架构的智能股票分析平台.</p>
+        </footer>
+    </div>
 
     <script>
-        function platformApp() {
-            return {
-                // 打开热力图应用
-                openHeatmap() {
-                    // 在新窗口打开热力图应用
-                    window.open('https://heatmap-drljknez4-simon-pans-projects.vercel.app/', '_blank');
-                    
-                    // 记录用户行为（用于后续分析）
-                    this.trackEvent('heatmap_accessed', {
-                        timestamp: new Date().toISOString(),
-                        source: 'main_platform'
-                    });
-                },
-                
-                // 打开个股详情应用
-                openStockDetails() {
-                    // 在新窗口打开个股详情应用
-                    window.open('https://stock-details-final-gmguhh0c4-simon-pans-projects.vercel.app/', '_blank');
-                    
-                    // 记录用户行为
-                    this.trackEvent('stock_details_accessed', {
-                        timestamp: new Date().toISOString(),
-                        source: 'main_platform'
-                    });
-                },
-                
-                // 事件追踪（为后续分析做准备）
-                trackEvent(eventName, data) {
-                    // 这里可以集成Google Analytics或其他分析工具
-                    console.log('Event tracked:', eventName, data);
-                    
-                    // 存储到本地存储（临时方案）
-                    const events = JSON.parse(localStorage.getItem('platform_events') || '[]');
-                    events.push({
-                        event: eventName,
-                        data: data,
-                        timestamp: new Date().toISOString()
-                    });
-                    localStorage.setItem('platform_events', JSON.stringify(events));
-                },
-                
-                // 初始化函数
-                init() {
-                    console.log('SP500 Insight Platform initialized');
-                    
-                    // 记录页面访问
-                    this.trackEvent('platform_visited', {
-                        userAgent: navigator.userAgent,
-                        timestamp: new Date().toISOString()
-                    });
+        // 检查应用状态
+        async function checkAppStatus() {
+            const apps = [
+                { name: '热力图', url: 'http://localhost:3000', element: 'heatmap-status' },
+                { name: '个股详情', url: 'http://localhost:3001', element: 'details-status' }
+            ];
+            
+            if (window.location.hostname === 'localhost') {
+                for (const app of apps) {
+                    try {
+                        const response = await fetch(app.url, { mode: 'no-cors' });
+                        console.log(`${app.name}应用状态: 运行中`);
+                    } catch (error) {
+                        console.log(`${app.name}应用状态: 未启动`);
+                    }
                 }
             }
         }
+        
+        // 页面加载时检查应用状态
+        document.addEventListener('DOMContentLoaded', checkAppStatus);
     </script>
 </body>
 </html>

@@ -1,0 +1,40 @@
+{
+  "name": "stocklink",
+  "version": "1.0.0",
+  "description": "微前端股票分析平台父仓库 - 连接热力图和个股详情页应用",
+  "main": "index.js",
+  "scripts": {
+    "dev:heatmap": "cd apps/heatmap && npm run dev",
+    "dev:details": "cd apps/details && npm run dev",
+    "build:heatmap": "cd apps/heatmap && npm run build",
+    "build:details": "cd apps/details && npm run build",
+    "install:all": "cd apps/heatmap && npm install && cd ../details && npm install",
+    "setup": "npm run import:repos && npm run install:all",
+    "import:repos": "echo 'Please run git subtree commands manually to import repositories'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/stocklink.git"
+  },
+  "keywords": [
+    "stock",
+    "heatmap",
+    "microfrontend",
+    "sp500",
+    "trading",
+    "finance",
+    "vercel"
+  ],
+  "author": "StockLink Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "workspaces": [
+    "apps/*"
+  ]
+}

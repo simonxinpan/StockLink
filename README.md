@@ -1,8 +1,8 @@
-# SP500 Insight Platform - 标普500洞察平台
+# StockLink - 微前端股票分析平台
 
 ## 项目概述
 
-SP500 Insight Platform是一个现代化的、数据驱动的Web应用平台，旨在为投资者提供对标普500 (S&P 500) 市场的宏观洞察与微观分析能力。项目采用**微前端 (Micro Frontends)** 架构，由多个独立开发和部署的应用模块构成，通过 URL 链接提供无缝的用户体验。
+**StockLink** 是一个基于微前端架构的股票分析平台父仓库，专门用于连接和整合多个独立的股票分析应用。平台以全景热力图作为主入口，通过点击交互无缝连接到个股详情页，为用户提供从宏观到微观的完整投资分析体验。
 
 ## 核心价值主张
 
@@ -32,40 +32,139 @@ SP500 Insight Platform是一个现代化的、数据驱动的Web应用平台，�
 
 ## 核心功能模块
 
-### 1. 宏观市场热力图 (Market Heatmap)
-- **线上应用**: `https://heatmap-pro.vercel.app/`
-- **GitHub 仓库**: `https://github.com/simonxinpan/Heatmap-pro/tree/HM-Pro-V5.6`
-
-**功能特性**:
-- **全景视图**: 一目了然地掌握市场整体情绪，快速识别领涨和领跌的板块
-- **动态上色**: 涨跌幅越大，色块颜色越深（美股：涨绿跌红），提供强烈的视觉冲击
-- **交互式探索**: 鼠标悬停在任意股票色块上，即可显示其名称、代码和精确的涨跌幅
-- **无缝导航**: 点击任意股票，即可无缝跳转至其专属的个股详情页，进行深度分析
+### 1. 全景热力图 (Market Heatmap)
+- **在线应用**: [https://heatmap-drljknez4-simon-pans-projects.vercel.app](https://heatmap-drljknez4-simon-pans-projects.vercel.app)
+- **GitHub仓库**: [https://github.com/simonxinpan/Heatmap-pro/tree/HM-Pro-V5.6](https://github.com/simonxinpan/Heatmap-pro/tree/HM-Pro-V5.6)
+- **功能描述**: 标普500成分股实时热力图展示，支持行业分类和个股点击跳转
+- **交互设计**: 
+  - 点击行业区域 → 进入行业热力图页面
+  - 点击个股方块 → 跳转到个股详情页
+- **技术栈**: Next.js, TradingView图表库, Tailwind CSS
+- **数据源**: Polygon API, Finnhub API
 
 ### 2. 智能个股详情页 (Smart Stock Details)
-- **线上应用**: `https://stock-details-final.vercel.app/`
-- **GitHub 仓库**: `https://github.com/simonxinpan/Stock-name-pages/tree/Stock-details-V17.3`
+- **在线应用**: [https://stock-details-final-gmguhh0c4-simon-pans-projects.vercel.app](https://stock-details-final-gmguhh0c4-simon-pans-projects.vercel.app)
+- **GitHub仓库**: [https://github.com/simonxinpan/Stock-name-pages/tree/Stock-details-V17.3](https://github.com/simonxinpan/Stock-name-pages/tree/Stock-details-V17.3)
+- **功能描述**: 个股深度分析，包含K线图、财务指标、公司信息和中英双语新闻
+- **核心特性**:
+  - 实时股价和K线图分析
+  - 全面财务指标展示
+  - 中英双语支持和智能翻译
+  - 响应式设计，多端适配
+- **技术栈**: Next.js 14, TypeScript, TradingView图表库, Tailwind CSS
+- **数据源**: Finnhub API, Neon PostgreSQL数据库
 
-**功能特性**:
-- **实时与历史数据**:
-  - **动态K线图**: 由 Polygon.io API 驱动，支持日、周、月多时间维度的历史数据可视化
-  - **实时报价**: 由 Finnhub API 驱动，提供最新的股价、涨跌幅、成交量等核心交易数据
-- **深度基本面分析**:
-  - **关键财务指标**: 展示市盈率 (P/E)、市销率 (P/S)、市值等关键估值指标
-  - **公司简介**: 提供公司名称、所属行业、交易所等核心信息
-- **多语言与信息整合**:
-  - **智能新闻翻译**: 自动将最新的相关英文新闻标题，通过火山引擎 (Volcengine) 官方翻译API，高质量地翻译成中文
-  - **新闻全文即时翻译**: 点击新闻标题后，直接在新标签页打开原文，用户可利用浏览器内置功能实现全文翻译
+## 项目结构
+
+### 文件夹组织
+
+```
+StockLink/
+├── apps/
+│   ├── heatmap/          # 全景热力图应用
+│   │   └── (从 Heatmap-pro 仓库导入)
+│   └── details/          # 个股详情页应用
+│       └── (从 Stock-name-pages 仓库导入)
+├── docs/                 # 产品文档
+├── README.md            # 项目说明
+└── package.json         # 依赖管理
+```
+
+### 代码导入说明
+
+#### 热力图应用导入
+```bash
+# 从GitHub仓库导入热力图代码
+git subtree add --prefix=apps/heatmap \
+  https://github.com/simonxinpan/Heatmap-pro.git HM-Pro-V5.6 --squash
+```
+
+#### 个股详情页导入
+```bash
+# 从GitHub仓库导入个股详情页代码
+git subtree add --prefix=apps/details \
+  https://github.com/simonxinpan/Stock-name-pages.git Stock-details-V17.3 --squash
+```
+
+## 快速开始
+
+### 环境要求
+- Node.js >= 18.0.0
+- npm >= 8.0.0
+- Git
+- 现代浏览器支持
+
+### 一键启动开发环境 (Windows)
+```bash
+# 运行开发启动脚本
+start-dev.bat
+```
+
+### 手动设置开发环境
+
+#### 1. 导入子应用代码
+```bash
+# 导入热力图应用
+git subtree add --prefix=apps/heatmap \
+  https://github.com/simonxinpan/Heatmap-pro.git HM-Pro-V5.6 --squash
+
+# 导入个股详情页应用
+git subtree add --prefix=apps/details \
+  https://github.com/simonxinpan/Stock-name-pages.git Stock-details-V17.3 --squash
+```
+
+#### 2. 安装依赖
+```bash
+# 安装所有应用依赖
+npm run install:all
+```
+
+#### 3. 配置环境变量
+在各应用目录下创建 `.env.local` 文件，配置API密钥和数据库连接。
+
+#### 4. 启动开发服务器
+```bash
+# 启动热力图应用 (端口 3000)
+npm run dev:heatmap
+
+# 启动个股详情页应用 (端口 3001)
+npm run dev:details
+```
+
+#### 5. 访问应用
+- 热力图应用: http://localhost:3000
+- 个股详情页: http://localhost:3001
+- 开发导航页: 打开 `index.html`
+
+### 部署到Vercel
+详细部署说明请参考 [DEPLOYMENT.md](./DEPLOYMENT.md)
 
 ## 技术架构
 
 ### 微前端架构
+
+#### 架构设计理念
+
+**StockLink** 作为父仓库，采用微前端架构连接两个核心应用：
+
+- **独立仓库管理**: 热力图和个股详情页分别维护在独立的GitHub仓库中
+- **父仓库整合**: StockLink仅作为连接器，不包含业务逻辑
+- **热力图入口**: 全景热力图作为平台主入口，无需额外的landing页面
+- **无缝跳转**: 通过点击交互实现应用间的无缝导航
+- **独立部署**: 每个应用独立部署在Vercel上，环境变量独立配置
+
 本项目采用**微前端 (Micro Frontends)** 架构，每个核心功能模块都是一个独立的、可独立部署的应用。
 
 **架构优势**:
 - **独立仓库与部署**: 每个模块拥有自己的 GitHub 仓库和 Vercel 部署实例，实现了开发、测试和发布的完全解耦
 - **URL 驱动的集成**: 各模块之间通过标准的 URL 链接和查询参数 (`?symbol=AAPL`) 进行通信和导航
 - **技术栈灵活性**: 每个模块可以选择最适合的技术栈
+
+### 微前端集成方式
+- **入口应用**: 热力图作为主入口，无需额外landing页面
+- **应用通信**: 通过URL参数和localStorage实现数据传递
+- **部署策略**: 每个应用独立部署在Vercel上
+- **环境配置**: 各应用独立配置API密钥和数据库连接
 
 ### 技术栈
 - **前端**: Alpine.js, Tailwind CSS (via CDN)
@@ -75,6 +174,12 @@ SP500 Insight Platform是一个现代化的、数据驱动的Web应用平台，�
   - Polygon.io (K线图)
   - Volcengine (翻译)
 - **部署平台**: Vercel
+
+### 数据源配置
+- **Polygon API**: 股票实时数据和历史K线
+- **Finnhub API**: 公司信息、财务指标、新闻资讯
+- **Neon PostgreSQL**: 标普500数据库存储
+- **环境变量**: 已在各Vercel项目中配置完成
 
 ## 数据源集成
 
